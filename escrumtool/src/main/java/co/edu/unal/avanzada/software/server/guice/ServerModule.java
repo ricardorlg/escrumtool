@@ -26,10 +26,14 @@
 
 package co.edu.unal.avanzada.software.server.guice;
 
+import co.edu.unal.avanzada.software.server.handlers.LoginActionHandler;
+import co.edu.unal.avanzada.software.shared.actions.LoginAction;
+
 import com.gwtplatform.dispatch.server.guice.HandlerModule;
 
 public class ServerModule extends HandlerModule {
-    @Override
-    protected void configureHandlers() {
-    }
+	@Override
+	protected void configureHandlers() {
+		bindHandler(LoginAction.class, LoginActionHandler.class);
+	}
 }

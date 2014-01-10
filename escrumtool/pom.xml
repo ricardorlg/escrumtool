@@ -17,13 +17,14 @@
 
 	<properties>
 		<!-- client -->
+		<gxt.version>3.0.1</gxt.version>
 		<gwt.version>2.5.1</gwt.version>
 		<gwtp.version>1.0-RC-3</gwtp.version>
 		<gin.version>2.0.0</gin.version>
 		<gwt.style>OBF</gwt.style>
 
 		<!-- server -->
-		<gae.version>1.7.7</gae.version>
+		<gae.version>1.8.7</gae.version>
 		<guice.version>3.0</guice.version>
 		<objectify.version>4.0b1</objectify.version>
 		<servlet-api.version>2.5</servlet-api.version>
@@ -43,7 +44,7 @@
 		<maven-processor-plugin.version>2.0.5</maven-processor-plugin.version>
 		<maven-build-helper-plugin.version>1.7</maven-build-helper-plugin.version>
 
-		<target.jdk>1.7</target.jdk>
+		<target.jdk>1.6</target.jdk>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -53,6 +54,18 @@
 
 	<build>
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>${project.build.directory}/generated-sources/apt</directory>
+			</resource>
+			<resource>
+				<directory>${project.build.directory}/generated-sources/gwt</directory>
+			</resource>
+		</resources>
 
 		<plugins>
 			<plugin>
@@ -121,6 +134,49 @@
 							<goal>compile</goal>
 							<goal>test</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.gwtplatform</groupId>
+						<artifactId>gwtp-processors</artifactId>
+						<version>${gwtp.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- Copy the generated classses -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/apt</source>
+								<source>${project.build.directory}/generated-sources/gwt</source>
+							</sources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -206,6 +262,7 @@
 				</dependencies>
 			</plugin>
 		</plugins>
+		
 	</build>
 
 	<dependencies>
@@ -236,6 +293,12 @@
 			<groupId>com.gwtplatform</groupId>
 			<artifactId>gwtp-dispatch-shared</artifactId>
 			<version>${gwtp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-processors</artifactId>
+			<version>${gwtp.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- DI -->
@@ -311,12 +374,40 @@
 			<artifactId>twig-persist</artifactId>
 			<version>2.0-rc</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>gxt</artifactId>
+			<version>${gxt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>gxt-chart</artifactId>
+			<version>${gxt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bramosystems.oss.player</groupId>
+			<artifactId>bst-player-api</artifactId>
+			<version>2.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.bramosystems.oss.player</groupId>
+			<artifactId>youtube-player-provider</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
 			<id>twig</id>
 			<url>http://mvn.twig-persist.googlecode.com/hg</url>
 		</repository>
+		<repository>
+			<id>bramosystems-releases</id>
+			<name>Bramosystems Release Repository</name>
+			<url>http://downloads.bramosystems.com/maven2/releases</url>
+		</repository>
+
 	</repositories>
 
 </project>
