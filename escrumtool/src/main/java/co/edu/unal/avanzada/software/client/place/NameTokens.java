@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Ricardo Larrahondo Genoy.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     Ricardo Larrahondo Genoy - initial API and implementation
+ ******************************************************************************/
 /**
  * Copyright 2012 ArcBees Inc.
  *
@@ -17,7 +27,7 @@
 package co.edu.unal.avanzada.software.client.place;
 
 public class NameTokens {
-    public static final String home = "home";
+    public static final String home = "!home";
 
     public static String getHome() {
         return home;
