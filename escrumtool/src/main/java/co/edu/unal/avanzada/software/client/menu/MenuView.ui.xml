@@ -1,0 +1,31 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client" xmlns:row="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:toolbar="urn:import:com.sencha.gxt.widget.core.client.toolbar"
+	xmlns:menu="urn:import:com.sencha.gxt.widget.core.client.menu"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form">
+
+	<ui:with type="co.edu.unal.avanzada.software.client.resources.Resources"
+		field="images" />
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="toolBarRowData">
+		<ui:attributes width="1" height="-1" />
+	</ui:with>
+
+	<ui:style>
+	.background {
+		background-color: white;
+	}
+	</ui:style>
+	<toolbar:ToolBar hBoxLayoutAlign="MIDDLE"
+                 borders="true" horizontalSpacing="5" enableOverflow="true" >
+
+		<button:TextButton text="Sign in" icon="{images.login}"  
+			ui:field="loginButton">
+		</button:TextButton>
+
+	</toolbar:ToolBar>
+
+</ui:UiBinder>
